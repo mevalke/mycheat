@@ -1,0 +1,64 @@
+#!/bin/bash
+
+function elementary {
+cat << "EOF"
+  Start file manager in terminal	xdg-open
+EOF
+}
+function tcpdump {
+cat << "EOF"
+  tcpdump -i eth0
+  tcpdump host 1.1.1.1
+  tcpdump src 1.1.1.1
+  tcpdump dst 1.0.0.1
+  tcpdump net 1.2.3.0/24
+  tcpdump port 3389
+  tcpdump src port 1025
+  tcpdump icmp
+  tcpdump portrange 21-23
+  tcpdump less 32
+  tcpdump greater 64
+  tcpdump port 80 -w capture_file
+  tcpdump -nnvvS src 10.5.2.3 and dst port 3389
+  tcpdump -nvX src net 192.168.0.0/16 and dst net 10.0.0.0/8 or 172.16.0.0/16
+  tcpdump -vv src sshserver and not dst port 22
+EOF
+}
+
+function tmux {
+cat << "EOF"
+  Start by issuing the command tmux in a terminal.
+
+  prefix: ctrl + b
+
+  prefix + %  vertical split
+  prefix + "  horizontal split
+  prefix + o  swap panes
+  prefix + q  show pane numbers
+  prefix + x  kill pane
+  prefix + +  break pane into window (e.g. to select text by mouse to copy)
+  prefix + -  restore pane from window
+  prefix + ⍽  space - toggle between layouts
+  prefix + {  move the current pane left
+  prefix + }  move the current pane right
+  prefix + z  toggle pane zoom
+  exit        command to exit out of tmux
+EOF
+}
+
+
+
+if [ "$1" == tmux ]; then
+  tmux
+elif [ "$1" == tcpdump ]; then
+  tcpdump
+elif [ "$1" == elementary ]; then
+  elementary 
+else
+  echo "Usage: mycheat <argument>"
+  echo "The following arguments are accepted:"
+  printf "\telementary\n\ttcpdump\n\ttmux \n"
+  exit 1
+fi
+
+exit 0
