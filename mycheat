@@ -5,6 +5,16 @@ cat << "EOF"
   Start file manager in terminal	xdg-open
 EOF
 }
+function openssl {
+cat << "EOF"
+  openssl s_client -connect google.com:443		Get google.com certificate
+  openssl x509 -in google.com-cert -text -noout		Parse file containing google.com certificate 
+  openssl x509 -in google.com-cert -noout -serial	Get the serial of the google.com cert
+  openssl x509 -in google.com-cert -noout -dates -ext 
+  keyUsage,subjectAltName				Get specific fields and extensions
+
+EOF
+}
 function tcpdump {
 cat << "EOF"
   tcpdump -i eth0
@@ -54,10 +64,12 @@ elif [ "$1" == tcpdump ]; then
   tcpdump
 elif [ "$1" == elementary ]; then
   elementary 
+elif [ "$1" == openssl ]; then
+  openssl
 else
   echo "Usage: mycheat <argument>"
   echo "The following arguments are accepted:"
-  printf "\telementary\n\ttcpdump\n\ttmux \n"
+  printf "\telementary\n\topenssl\n\ttcpdump\n\ttmux \n"
   exit 1
 fi
 
