@@ -12,7 +12,9 @@ cat << "EOF"
   openssl x509 -in google.com-cert -noout -serial	Get the serial of the google.com cert
   openssl x509 -in google.com-cert -noout -dates -ext 
   keyUsage,subjectAltName				Get specific fields and extensions
-
+  diff <(openssl x509 -in MyCert.cert -noout -modulus) 
+  <(openssl rsa -in MyCert.key -noout -modulus)		Compare the modulus of the cert and the key thus
+							validating the signature
 EOF
 }
 function tcpdump {
