@@ -5,14 +5,19 @@ cat << "EOF"
   Start file manager in terminal	xdg-open
 EOF
 }
+function nmap {
+cat << "EOF"
+  Get cipher suites supported by site.com       nmap --script ssl-enum-ciphers -p 443 site.com
+EOF
+}
 function openssl {
 cat << "EOF"
   openssl s_client -connect google.com:443		Get google.com certificate
-  openssl x509 -in google.com-cert -text -noout		Parse file containing google.com certificate 
+  openssl x509 -in google.com-cert -text -noout		Parse file containing google.com certificate
   openssl x509 -in google.com-cert -noout -serial	Get the serial of the google.com cert
-  openssl x509 -in google.com-cert -noout -dates -ext 
+  openssl x509 -in google.com-cert -noout -dates -ext
   keyUsage,subjectAltName				Get specific fields and extensions
-  diff <(openssl x509 -in MyCert.cert -noout -modulus) 
+  diff <(openssl x509 -in MyCert.cert -noout -modulus)
   <(openssl rsa -in MyCert.key -noout -modulus)		Compare the modulus of the cert and the key thus
 							validating the signature
 EOF
@@ -65,13 +70,15 @@ if [ "$1" == tmux ]; then
 elif [ "$1" == tcpdump ]; then
   tcpdump
 elif [ "$1" == elementary ]; then
-  elementary 
+  elementary
 elif [ "$1" == openssl ]; then
   openssl
+elif [ "$1" == nmap ]; then
+  nmap
 else
   echo "Usage: mycheat <argument>"
   echo "The following arguments are accepted:"
-  printf "\telementary\n\topenssl\n\ttcpdump\n\ttmux \n"
+  printf "\telementary\n\tnmap\n\topenssl\n\ttcpdump\n\ttmux \n"
   exit 1
 fi
 
